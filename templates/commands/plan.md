@@ -27,7 +27,7 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Fill Constitution Check section from constitution
    - Evaluate gates (ERROR if violations unjustified)
    - Phase 0: Generate research.md (resolve all NEEDS CLARIFICATION)
-   - Phase 1: Generate data-model.md, contracts/, quickstart.md
+   - Phase 1 generates functional-design.md, integration-test.md, quickstart.md
    - Phase 1: Update agent context by running the agent script
    - Re-evaluate Constitution Check post-design
 
@@ -57,19 +57,64 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 **Output**: research.md with all NEEDS CLARIFICATION resolved
 
-### Phase 1: Design & Contracts
+### Phase 1: Design
 
 **Prerequisites:** `research.md` complete
 
-1. **Extract entities from feature spec** → `data-model.md`:
-   - Entity name, fields, relationships
-   - Validation rules from requirements
-   - State transitions if applicable
+### ドキュメントと章の構成
 
-2. **Generate API contracts** from functional requirements:
-   - For each user action → endpoint
-   - Use standard REST/GraphQL patterns
-   - Output OpenAPI/GraphQL schema to `/contracts/`
+ドキュメントは次のファイルへ分割する。
+
+1. functional-design.md
+   - 外部仕様書
+2. integration-test.md
+   - 統合テスト計画
+3. quickstart.md
+   - ソフトウェアを使用するユーザー向けの、クイックスタートガイド
+
+#### functional-design.md
+
+次のコメントブロックへ記載する見出しを使用して作成すること。見出し内の本文に書かれているのは、その章の記載内容の説明である。
+
+```markdown
+# 外部仕様書
+
+## 概要
+
+## 機能
+
+ソフトウェアが持つ機能の一覧と、それぞれの説明を記載する。
+
+## ユーザーインターフェース
+
+GUIもしくはCLIを含む場合、その定義を記載する。GUIの場合は画面定義・画面の動作など。CLIの場合はコマンドの定義など。
+
+GUI/CLIどちらのケースでも、ユーザーへ表示するメッセージが有る場合は、メッセージの文字列とメッセージを表示する条件を一覧表で記載すること。
+
+## ソフトウェアインターフェース
+
+外部システムとのインターフェースを定義する。APIエンドポイントやデータフォーマットなどを記載する。APIエンドポイントは、WebAPIであればOpenAPI形式、.NETクラスライブラリについてはC#のXMLドキュメントコメント形式で、ネイティブC++についてはVisual C++のXMLドキュメントコメント形式で記載すること。
+
+## 実現方式
+
+ソフトウェアの構成図、アーキテクチャや使用する技術スタックを記載する。また、機能を実現する上で方式の指定や重要なポイントがあれば記載する（Phase 0で判明した内容など）。
+
+## 保守機能
+
+ソフトウェアを保守するための機能について記載する。ログの取得方法、設定変更方法、監視ポイントなど。
+
+## 開発環境
+
+ソフトウェアをビルド・デプロイするために必要な環境を記載する。
+
+```
+
+#### integration-test.md
+
+統合テストの観点を記載する。テストコードで完結するUnitTestの記載は含めず、実際の運用環境で行なうテストの観点を記載する。
+
+### その他の処理
+
 
 3. **Agent context update**:
    - Run `{AGENT_SCRIPT}`
@@ -78,7 +123,7 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Add only new technology from current plan
    - Preserve manual additions between markers
 
-**Output**: data-model.md, /contracts/*, quickstart.md, agent-specific file
+**Output**: functional-design.md, integration-test.md, /contracts/*, quickstart.md, agent-specific file
 
 ## Key rules
 
