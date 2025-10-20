@@ -52,6 +52,10 @@ spec-kitの開発プロセスを使用すること。
 フェーズは **Specify → Plan → Tasks → Implement** の順で進めます。  
 前のフェーズの成果物がレビュー／承認されてから次に移ること。
 
+## ドキュメント管理ルール
+
+[ドキュメント管理ルール](instructions/documentation-guidelines.instructions.md) に従うこと。
+
 ## 補足
 
 - フェーズ間で新たな気づきがあれば、Spec を修正してフィードバックループを回してください。  
