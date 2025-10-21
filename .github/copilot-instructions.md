@@ -61,3 +61,28 @@ spec-kitの開発プロセスを使用すること。
 - フェーズ間で新たな気づきがあれば、Spec を修正してフィードバックループを回してください。  
 - タスクの粒度や非機能要件の深さなどはこのプロジェクトの規模・リスク・チーム構成によって調整可能ですが、上記基準を下回らないようにしてください。
 
+
+# ツール
+
+## ビルド
+
+ビルドにはmsbuildをコマンドプロンプトで実行する。dotnet buildはXAMLコンパイラエラーの詳細を検出出来ないため使用しない。msbuildのコマンドは次のように、<>部分に対象のソリューションファイルのパスを与えて実行する。オプションは最低限のものであり、必要に応じて追加・変更してもよい。
+
+`msbuild.exe <.sln/.slnx/.proj> /m /p:Configuration=Debug`
+
+### msbuild.exeのフルパス探索方法
+
+vswhere.exe を使って MSBuild.exe のフルパスを取得してください。
+
+例えば：
+
+```powershell
+&"${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.Component.MSBuild -find "MSBuild\**\Bin\MSBuild.exe"
+```
+
+```bat
+"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
+```
+
+
+
